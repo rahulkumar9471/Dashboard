@@ -1,24 +1,30 @@
-import logo from './logo.svg';
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import Navbar from './components/Navbar';
+import Sidebar from './components/Sidebar';
+import Dashboard from './Pages/Dashboard';
+import { useState } from 'react'; 
+import Setting from './Pages/Setting';
 
 function App() {
+
+  const [isSIdebar, setIsSidebar] = useState(true);
+
+  const toggleSidebar = () => {
+    setIsSidebar(!isSIdebar);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Navbar toggleSidebar={toggleSidebar} />
+      <div className="flex justify-start w-full">
+        <Sidebar isSIdebar={isSIdebar} /> 
+        <Routes>
+          <Route path='/' element={<Dashboard />} />
+          <Route path='/profile/settings' element={<Setting />} />
+        </Routes>
+      </div>
+    </>
   );
 }
 
