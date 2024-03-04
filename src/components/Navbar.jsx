@@ -1,12 +1,15 @@
 import React from "react";
 import banner from "../img/banner.jpg";
 import { FaBars, FaMoon } from "react-icons/fa";
+import { CiLight } from "react-icons/ci";
 
 const Navbar = (props) => {
   const toggleSidebar = props.toggleSidebar;
+  const toggleTheme = props.toggleTheme;
+  const theme = props.theme;
 
   return (
-    <header className="bg-[#418160] text-[#fff] w-full z-10 shadow-md">
+    <header className={`${theme === 'light' ? "bg-[#418160]" : "bg-[#282c34]" } text-[#fff] w-full z-10 shadow-md`}>
       <nav className="flex w-full justify-between px-[1rem] sm:px[1rem] md:px-[2rem] py-2 items-center">
         <div className="flex justify-between items-center gap-x-6 sm:gap-x-6 md:gap-x-8">
           <div className="flex justify-center items-center ">
@@ -24,8 +27,12 @@ const Navbar = (props) => {
         <div className="">
           <ul className="flex gap-x-6 sm:gap-x-6 md:gap-x-8 lg:gap-x-10 font-semibold items-center">
             <li>
-              <button className="border-2 border-[#fff] p-2 text-[#fff] hover:bg-[#fff] hover:text-[#418160] rounded-[4px]">
-                <FaMoon fontSize={12} />
+              <button onClick={toggleTheme} className="border-2 border-[#fff] p-1 text-[#fff] hover:bg-[#fff] hover:text-[#418160] rounded-[4px]">
+                {
+                  theme === "light" ? <CiLight fontSize={20} /> :   <FaMoon fontSize={20} />
+                }
+              
+                
               </button>
             </li>
             <li>

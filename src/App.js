@@ -3,7 +3,7 @@ import './App.css';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
 import Dashboard from './Pages/Dashboard';
-import { useState } from 'react'; 
+import { useEffect, useState } from 'react';
 import Setting from './Pages/Setting';
 
 function App() {
@@ -14,15 +14,27 @@ function App() {
     setIsSidebar(!isSIdebar);
   }
 
+  const [theme, setTheme] = useState("light");
+
+  const toggleTheme = () => {
+    setTheme(theme === "light" ? "dark" : "light");
+  }
+
+  useEffect(() => {
+    document.body.className = theme;
+  },[theme])
+
   return (
     <>
-      <Navbar toggleSidebar={toggleSidebar} />
-      <div className="flex justify-start w-full">
-        <Sidebar isSIdebar={isSIdebar} /> 
-        <Routes>
-          <Route path='/' element={<Dashboard />} />
-          <Route path='/profile/settings' element={<Setting />} />
-        </Routes>
+      <div className={`${theme}`}>
+        <Navbar toggleSidebar={toggleSidebar} toggleTheme={toggleTheme} theme={theme}/>
+        <div className="flex justify-start w-full">
+          <Sidebar isSIdebar={isSIdebar} theme={theme}/>
+          <Routes>
+            <Route path='/' element={<Dashboard />} />
+            <Route path='/profile/settings' element={<Setting />} />
+          </Routes>
+        </div>
       </div>
     </>
   );
